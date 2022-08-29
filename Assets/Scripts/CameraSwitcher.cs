@@ -8,6 +8,8 @@ public class CameraSwitcher : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameObject prisonCamera;
+    [SerializeField] GameObject prisonCameraVolume;
+
     private bool isPrisonCameraUsed;
     private bool isFirstFrame = true;
     Mouse mouse;
@@ -24,6 +26,7 @@ public class CameraSwitcher : MonoBehaviour
         player.SetActive(false);
         prisonCamera.SetActive(true);
         isPrisonCameraUsed = true;
+        prisonCameraVolume.SetActive(true);
     }
 
     private void Update()
@@ -33,6 +36,7 @@ public class CameraSwitcher : MonoBehaviour
             player.SetActive(true);
             prisonCamera.SetActive(false);
             isPrisonCameraUsed = false;
+            prisonCameraVolume.SetActive(false);
         }
     }
 }
