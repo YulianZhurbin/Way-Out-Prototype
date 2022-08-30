@@ -11,7 +11,7 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] GameObject prisonCameraVolume;
 
     private bool isPrisonCameraUsed;
-    private bool isFirstFrame = true;
+    //private bool isFirstFrame = true;
     Mouse mouse;
     Keyboard keyboard;
 
