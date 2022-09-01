@@ -15,6 +15,17 @@ public class FootstepManager : MonoBehaviour
     [SerializeField] FirstPersonController plController;
     [SerializeField] StarterAssetsInputs inputs;
 
+    [SerializeField] AudioClip[] floorJumps;
+    [SerializeField] AudioClip[] grassJumps;
+    [SerializeField] AudioClip[] metalJumps;
+    [SerializeField] AudioClip[] woodJumps; 
+    
+    [SerializeField] AudioClip[] floorLands;
+    [SerializeField] AudioClip[] grassLands;
+    [SerializeField] AudioClip[] metalLands;
+    [SerializeField] AudioClip[] woodLands;
+
+    bool falling;
     private void OnEnable()
     {
         //StartCoroutine(CastRay());
@@ -62,27 +73,70 @@ public class FootstepManager : MonoBehaviour
 
     private void Update()
     {
-        bool isMoving = inputs.move.x != 0 || inputs.move.y != 0;
-
-        if(isMoving)
+        if(!falling)
         {
-            if(inputs.sprint == true)
+            if (plController.Grounded)
             {
-                anim.SetBool("Running", true);
+                if(inputs.jump)
+                {
+                    ResetAnimParams();
+                    anim.SetBool("jump", true);
+                    falling = true;
+                    return;
+                }
+
+                bool isMoving = inputs.move.x != 0 || inputs.move.y != 0;
+
+                if (isMoving)
+                {
+                    if (inputs.sprint == true)
+                    {
+                        ResetAnimParams();
+                        anim.SetBool("run", true);
+                    }
+                    else
+                    {
+                        ResetAnimParams();
+                        anim.SetBool("walk", true);
+                    }
+                }
+                else
+                {
+                    ResetAnimParams();
+                    anim.SetBool("idle", true);
+                }
             }
             else
             {
-                anim.SetBool("Walking", true);
+                falling = true;
             }
         }
         else
         {
-            anim.SetBool("Walking", false);
-            anim.SetBool("Running", false);
+            if(plController.Grounded && inputs.jump == false)
+            {
+                ResetAnimParams();
+                anim.SetBool("land", true);
+                falling = false;
+            }
+            else
+            {
+
+            }
         }
     }
 
-    public void CastRay()
+    private void ResetAnimParams()
+    {
+        anim.SetBool("idle", false);
+        anim.SetBool("walk", false);
+        anim.SetBool("run", false);
+        anim.SetBool("jump", false);
+        anim.SetBool("land", false);
+    }
+
+    #region Steps
+    public void Step()
     {
         Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.3f);
 
@@ -134,4 +188,82 @@ public class FootstepManager : MonoBehaviour
         int soundIndex = Random.Range(0, woodSteps.Length);
         audioSource.PlayOneShot(woodSteps[soundIndex]);
     }
+    #endregion
+
+    #region Jumps
+    public void Jump()
+    {
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 2f);
+
+        if (hit.collider != null)
+        {
+            Debug.Log(hit.collider.tag);
+
+            if (hit.collider.CompareTag("Concrete"))
+            {
+                PlayJump(floorJumps);
+            }
+
+            if (hit.collider.CompareTag("Ground"))
+            {
+                PlayJump(grassJumps);
+            }
+
+            if (hit.collider.CompareTag("Metal"))
+            {
+                PlayJump(metalJumps);
+            }
+
+            if (hit.collider.CompareTag("Wood"))
+            {
+                PlayJump(woodJumps);
+            }
+        }
+    }
+
+    private void PlayJump(AudioClip[] audioClips)
+    {
+        int soundIndex = Random.Range(0, audioClips.Length);
+        audioSource.PlayOneShot(audioClips[soundIndex]);
+    }
+    #endregion
+
+    #region Lands
+    public void Land()
+    {
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 2f);
+
+        if (hit.collider != null)
+        {
+            Debug.Log(hit.collider.tag);
+
+            if (hit.collider.CompareTag("Concrete"))
+            {
+                PlayLand(floorLands);
+            }
+
+            if (hit.collider.CompareTag("Ground"))
+            {
+                PlayLand(grassLands);
+            }
+
+            if (hit.collider.CompareTag("Metal"))
+            {
+                PlayLand(metalLands);
+            }
+
+            if (hit.collider.CompareTag("Wood"))
+            {
+                PlayLand(woodLands);
+            }
+        }
+    }
+
+    private void PlayLand(AudioClip[] audioClips)
+    {
+        int soundIndex = Random.Range(0, audioClips.Length);
+        audioSource.PlayOneShot(audioClips[soundIndex]);
+    }
+    #endregion
+
 }

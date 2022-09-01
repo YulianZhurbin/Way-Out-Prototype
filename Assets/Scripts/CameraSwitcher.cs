@@ -10,8 +10,8 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] GameObject prisonCamera;
     [SerializeField] GameObject prisonCameraVolume;
 
-    private bool isPrisonCameraUsed;
-    //private bool isFirstFrame = true;
+    private bool canPrCameraBeTurnedOff;
+
     Mouse mouse;
     Keyboard keyboard;
 
@@ -25,18 +25,25 @@ public class CameraSwitcher : MonoBehaviour
     {
         player.SetActive(false);
         prisonCamera.SetActive(true);
-        isPrisonCameraUsed = true;
         prisonCameraVolume.SetActive(true);
+        StartCoroutine(Pause());
     }
 
     private void Update()
     {
-        if (isPrisonCameraUsed && (mouse.leftButton.wasPressedThisFrame || keyboard.anyKey.wasPressedThisFrame))
+        if (canPrCameraBeTurnedOff && (mouse.leftButton.wasPressedThisFrame || keyboard.anyKey.wasPressedThisFrame))
         {
             player.SetActive(true);
             prisonCamera.SetActive(false);
-            isPrisonCameraUsed = false;
+            canPrCameraBeTurnedOff = false;
             prisonCameraVolume.SetActive(false);
         }
+    }
+
+    private IEnumerator Pause()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        canPrCameraBeTurnedOff = true;
     }
 }
