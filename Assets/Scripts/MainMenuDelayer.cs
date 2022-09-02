@@ -6,12 +6,7 @@ public class MainMenuDelayer : MonoBehaviour
 {
     [SerializeField] GameObject mainMenu;
 
-    private void Start()
-    {
-        ActivateMainMenu();
-    }
-
-    public void ActivateMainMenu()
+    private void OnEnable()
     {
         StartCoroutine(ShowMainMenu());
     }
@@ -21,5 +16,6 @@ public class MainMenuDelayer : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         mainMenu.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
     }
 }

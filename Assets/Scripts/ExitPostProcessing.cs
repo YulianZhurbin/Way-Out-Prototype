@@ -39,4 +39,12 @@ public class ExitPostProcessing : MonoBehaviour
             bloom.scatter.value = 1.0f;
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }

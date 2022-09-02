@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Threading;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CameraSwitcher : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameObject prisonCamera;
     [SerializeField] GameObject prisonCameraVolume;
+    [SerializeField] Volume globalVolume;
 
     private bool canPrCameraBeTurnedOff;
 
     Mouse mouse;
     Keyboard keyboard;
+    MotionBlur motionBlur;
 
     private void Start()
     {
         mouse = Mouse.current;
         keyboard = Keyboard.current;
+        globalVolume.GetComponent<Volume>().profile.TryGet(out motionBlur);
     }
 
     public void Switch()
@@ -26,6 +31,7 @@ public class CameraSwitcher : MonoBehaviour
         player.SetActive(false);
         prisonCamera.SetActive(true);
         prisonCameraVolume.SetActive(true);
+        motionBlur.active = false;
         StartCoroutine(Pause());
     }
 
@@ -37,6 +43,7 @@ public class CameraSwitcher : MonoBehaviour
             prisonCamera.SetActive(false);
             canPrCameraBeTurnedOff = false;
             prisonCameraVolume.SetActive(false);
+            motionBlur.active = true;
         }
     }
 

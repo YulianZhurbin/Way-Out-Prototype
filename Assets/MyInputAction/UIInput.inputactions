@@ -1,0 +1,51 @@
+{
+    "name": "UIInput",
+    "maps": [
+        {
+            "name": "UIMap",
+            "id": "3d7a1352-dee8-49d3-834b-9a7bfc8b9f63",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "0668d93e-3639-409a-ba35-3f20881dd49d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e9093453-b379-4616-97e1-cb24acffaafc",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Mouse and Keyboard",
+            "bindingGroup": "Mouse and Keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

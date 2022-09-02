@@ -16,6 +16,11 @@ public class MenuMusicController : MonoBehaviour
         StartCoroutine(IncreaseVolume());
     }
 
+    public void TurnOffMusic()
+    {
+        StartCoroutine(DecreaseVolume());
+    }
+
     private IEnumerator IncreaseVolume()
     {
         while(audioSource.volume < terminalVolume)
@@ -24,5 +29,17 @@ public class MenuMusicController : MonoBehaviour
 
             audioSource.volume += Time.deltaTime * 0.5f;
         }
+    }    
+    
+    private IEnumerator DecreaseVolume()
+    {
+        while(audioSource.volume > 0)
+        {
+            yield return new WaitForEndOfFrame();
+
+            audioSource.volume -= Time.deltaTime;
+        }
+
+        gameObject.SetActive(false);
     }
 }

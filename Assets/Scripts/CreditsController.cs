@@ -20,8 +20,8 @@ public class CreditsController : MonoBehaviour
 
     private void OnDisable()
     {
-        Debug.Log("OnDisable()");
-        lines[curLineIndex].SetActive(false);
+        if (curLineIndex < lines.Length)
+            lines[curLineIndex].SetActive(false);
     }
 
     private IEnumerator MakeLineVisible()
@@ -31,7 +31,7 @@ public class CreditsController : MonoBehaviour
 
         curLineText.alpha = 0;
 
-        while(curLineText.alpha < 1)
+        while (curLineText.alpha < 1)
         {
             yield return new WaitForEndOfFrame();
             curLineText.alpha += Time.deltaTime / fadeTime;
@@ -42,7 +42,7 @@ public class CreditsController : MonoBehaviour
 
     private IEnumerator ShowLine()
     {
-        if(curLineIndex > lines.Length - 3)
+        if (curLineIndex > lines.Length - 3)
         {
             yield return new WaitForSeconds(showTime * 2);
         }
@@ -68,12 +68,13 @@ public class CreditsController : MonoBehaviour
 
         curLineIndex++;
 
-        if(curLineIndex >= lines.Length - 1)
+        if (curLineIndex > lines.Length - 1)
         {
-            Debug.Log("end");
-            StopAllCoroutines();
+            ;
         }
-
-        StartCoroutine(MakeLineVisible());
+        else
+        {
+            StartCoroutine(MakeLineVisible());
+        }
     }
 }

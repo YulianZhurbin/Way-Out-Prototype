@@ -29,7 +29,6 @@ public class FootstepManager : MonoBehaviour
     private void OnEnable()
     {
         //StartCoroutine(CastRay());
-        Debug.Log("OnEnable()");
     }
 
     //private IEnumerator CastRay()
@@ -142,7 +141,6 @@ public class FootstepManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.tag);
 
             if (hit.collider.CompareTag("Concrete"))
             {
@@ -197,8 +195,6 @@ public class FootstepManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.tag);
-
             if (hit.collider.CompareTag("Concrete"))
             {
                 PlayJump(floorJumps);
@@ -235,8 +231,6 @@ public class FootstepManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.tag);
-
             if (hit.collider.CompareTag("Concrete"))
             {
                 PlayLand(floorLands);

@@ -6,6 +6,7 @@ using TMPro;
 public class TitleController : MonoBehaviour
 {
     [SerializeField] TMP_Text title;
+    [SerializeField] float transparentTime = 1.0f;
 
     private void OnEnable()
     {
@@ -18,7 +19,7 @@ public class TitleController : MonoBehaviour
         while (title.alpha < 1)
         {
             yield return new WaitForEndOfFrame();
-            title.alpha += Time.deltaTime;
+            title.alpha += Time.deltaTime / transparentTime;
         }
     }
 }
