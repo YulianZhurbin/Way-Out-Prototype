@@ -41,7 +41,7 @@ public partial class @UIInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e9093453-b379-4616-97e1-cb24acffaafc"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse and Keyboard"",
